@@ -1,0 +1,11 @@
+sudo: required
+services:
+  - docker
+
+install:
+  - export CURRENT_PATH=$(pwd)
+  - cd stable/3.8/nginx-stable && docker build -t ngx-pagespeed-alpine:latest .
+  - docker run -d --name ngx-pagespeed-alpine ngx-pagespeed-alpine:latest
+
+script:
+  - docker ps | grep -q ngx-pagespeed-alpine
